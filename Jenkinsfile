@@ -16,8 +16,8 @@ pipeline {
         
         stage('Git clone') {
             steps {
-                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/kariyaniamit/node-js-app.git']])
-                //git 'https://github.com/kariyaniamit/node-js-app.git'
+                //checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/kariyaniamit/node-js-app.git']])
+                git 'https://github.com/kariyaniamit/node-js-app.git'
             }
         }
         
