@@ -43,9 +43,11 @@ pipeline {
         stage('Deploy Docker Image') {
             steps {
                 script {
-                    sh 'scp deploy.sh ${REMOTE_USER}@${REMOTE_HOST}:~/'
-                    sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} "chmod +x deploy.sh"'
-                    sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} ./deploy.ssh'
+                    sh 'pwd'
+                    sh 'scp ${WORKSPACE}/deploy.sh ${REMOTE_USER}@${REMOTE_HOST}:~/'
+                    sh 'pwd'
+                    //sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} "chmod +x deploy.sh"'
+                    //sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} ./deploy.sh'
                 }
             }
         }
