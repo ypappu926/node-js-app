@@ -6,6 +6,8 @@ pipeline {
         IMAGE_REPO_NAME = "node-app-repo"
         IMAGE_TAG="latest"
         REPOSITORY_URI= "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
+        REMOTE_USER = "root"
+        REMOTE_HOST = "10.10.4.56"
     }
     stages {
         stage('Login into ECR') {
@@ -34,6 +36,16 @@ pipeline {
                 script {
                     sh "docker tag ${IMAGE_REPO_NAME}:latest ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
                     sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
+                }
+            }
+        }
+
+        stage('Deploy Docker Image') {
+            steps {
+                script {
+                    sh 'scp deploy.sh ${REMOTE_USER}@${REMOTE_HOST}:~/'
+                    sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} "chmod +x deploy.sh"'
+                    sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} ./deploy.ssh'
                 }
             }
         }
