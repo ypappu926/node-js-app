@@ -11,7 +11,6 @@ services:
       - MONGO_URI=mongodb://mongodb:27017/library
       - REDIS_URI=redis://redis:6379
     depends_on:
-      - mongodb
       - redis
     restart: always
     
