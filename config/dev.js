@@ -1,6 +1,9 @@
 require('dotenv').config();
+
+const awsDocumentDBURI = 'mongodb://amit:amit1234@node-db.cluster-cpm60sek0z1k.ap-south-1.docdb.amazonaws.com:27017/?tls=true&tlsCAFile=global-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false'
+
 module.exports = {
-  mongoURI: `mongodb://${process.env.MONGO_HOST}:${process.env.MONGO_PORT}/${process.env.MONGO_DB_NAME}`,
+  mongoURI: awsDocumentDBURI,
   redisPort: process.env.REDIS_PORT,
   redisHost: process.env.REDIS_HOST
 };
