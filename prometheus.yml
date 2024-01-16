@@ -1,0 +1,43 @@
+global:
+  scrape_interval: 10s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['10.48.164.221:9090']
+
+  - job_name: 'kube-state-metrics'
+    metrics_path: /metrics
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['10.48.164.220:30008']
+
+
+  - job_name: 'node-exporter'
+    metrics_path: /metrics
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['d.d.d.d:d']
+
+  - job_name: 'cadvisor'
+    metrics_path: /metrics
+    scrape_interval: 5s
+    static_configs:
+      - targets: [''d.d.d.d:d']
+
+
+  - job_name: 'node-exporter'
+    metrics_path: /node-exporter/metrics
+    scrape_interval: 5s
+    static_configs:
+      - targets: [''d.d.d.d']
+
+
+- job_name: 'node-exporter'
+        kubernetes_sd_configs:
+          - role: endpoints
+        relabel_configs:
+        - source_labels: [__meta_kubernetes_endpoints_name]
+          regex: 'node-exporter'
+          action: keep
